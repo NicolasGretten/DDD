@@ -1,13 +1,8 @@
 import IVehicle from "../Interface/IVehicle";
 
 export default class Vehicle implements IVehicle{
-    isStarted;
-    nbPersonIn;
-
-    constructor() {
-        this.isStarted = false
-        this.nbPersonIn = 0
-    }
+    isStarted = false;
+    nbPersonIn = 0;
 
     protected start(): void{
         this.isStarted = true;
