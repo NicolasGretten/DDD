@@ -1,3 +1,14 @@
-import App from "./App";
+import Bomber from "./Bomber";
+import Pilot from "./Pilot";
 
-App.run();
+export const initLukeSkywalker = (): Pilot => {
+    const bomber = new Bomber()
+    console.log("BOMBER ", bomber.isStarted)
+    const lukeSkywalker = new Pilot(bomber)
+    lukeSkywalker.launchVehicle();
+
+    return lukeSkywalker
+}
+
+initLukeSkywalker();
+
