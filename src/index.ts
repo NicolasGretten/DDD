@@ -4,6 +4,11 @@ import CorvetteStarship from "src/GangOfFour/CorvetteStarship";
 import StarshipFactory from "src/GangOfFour/StarshipFactory";
 import Starship from "src/GangOfFour/Starship";
 import StarDestroyerStarship from "src/GangOfFour/StarDestroyerStarship";
+import StarshipDataHandler from "src/Command/StarshipDataHandler";
+import StarshipErrorHandler from "src/Command/StarshipErrorHandler";
+import FetchAllStarshipsCommand from "src/Command/FetchAllStarshipsCommand";
+import FetchOneStarshipCommand from "src/Command/FetchOneStarshipCommand";
+import StarshipCommandBus from "src/Command/StarshipCommandBus";
 
 export const initLukeSkywalker = (): Pilot => {
     const bomber = new Bomber()
@@ -28,6 +33,22 @@ export const starships = () => {
     }
 }
 
+export async function tp3() {
+    const starshipDataHandler = new StarshipDataHandler();
+    const starshipErrorHandler = new StarshipErrorHandler();
+
+    const fetchAllStarshipsCommand = new FetchAllStarshipsCommand(starshipDataHandler, starshipErrorHandler);
+    const fetchOneStarshipCommand = new FetchOneStarshipCommand(9, starshipDataHandler, starshipErrorHandler);
+
+    const starshipCommandBus = new StarshipCommandBus();
+    starshipCommandBus.addCommand(fetchAllStarshipsCommand);
+    starshipCommandBus.addCommand(fetchOneStarshipCommand);
+
+    await starshipCommandBus.executeCommands();
+}
+
+tp3().then(r => console.log("Finished", r));
+
 // initLukeSkywalker();
-starships()
+// starships()
 
